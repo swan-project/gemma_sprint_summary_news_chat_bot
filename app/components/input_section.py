@@ -6,7 +6,7 @@ class InputSection(ft.UserControl):
         super().__init__()
         self.text_field = ft.TextField(
             border_color=ft.colors.TRANSPARENT,
-            value="https://",
+            value="https://www.sciencetimes.co.kr/",
             label="Input Text",
             multiline=True,
             width=400,
@@ -45,7 +45,7 @@ class InputSection(ft.UserControl):
     
     def update_prefix(self):
         if self.mode == "link":
-            self.text_field.value = "https://"
+            self.text_field.value = "https://www.sciencetimes.co.kr/",
         else:
             self.text_field.value = ""
         self.update()
