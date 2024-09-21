@@ -1,7 +1,7 @@
 import flet as ft
 from typing import Callable
 import requests
-from bs4 import BeautifulSoup
+from modules.summarize import summarize_text
 
 class InputSection(ft.UserControl):
     def __init__(self, on_summarize: Callable[[str], None]):
@@ -129,12 +129,12 @@ class InputSection(ft.UserControl):
             self.text_field.value = ""
         self.update()
 
-    def summarize(self, e):
+    async def summarize(self, e):
         input_text = self.text_field.value
         if self.mode == "link":
             text_summary = f"{input_text}"
         else:
-            text_summary = f"Summarized content in {self.mode} mode: {input_text}"
+            text_summary = await summarize_text(input_text)
         self.on_summarize(text_summary)
 
     def build(self):

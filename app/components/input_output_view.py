@@ -20,7 +20,7 @@ class InputOutputView(ft.UserControl):
         self.update()
 
     def summarize_to_output(self, text: str):
-        self.input_section.update_prefix()
+        # self.input_section.update_prefix()
         self.output_section.set_output_text(text)
 
     def save_texts(self, e):
