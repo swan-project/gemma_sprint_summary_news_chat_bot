@@ -62,7 +62,7 @@ class InputSection(ft.UserControl):
         
     def update_prefix(self):
         if self.mode == "link":
-            self.text_field.value = "http`s://www.sciencetimes.co.kr/",
+            self.text_field.value = "http`s://www.sciencetimes.co.kr/"
             # 웹페이지 URL
             #url = "https://www.sciencetimes.co.kr/news/%eb%82%b4-%ec%a3%bc%eb%b3%80-%ec%83%9d%eb%ac%bc-%ec%86%8c%eb%a6%ac%eb%a1%9c-%ec%83%9d%eb%ac%bc%eb%8b%a4%ec%96%91%ec%84%b1-%ec%97%b0%ea%b5%ac%ed%95%9c%eb%8b%a4%ec%86%8c%eb%a6%ac/?cat=31"
         else:
