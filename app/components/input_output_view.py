@@ -6,9 +6,9 @@ from components.item import Item
 from components.app_bar import AppBar
 
 class InputOutputView(ft.UserControl):
-    def __init__(self):
+    def __init__(self, pipe_finetuned):
         super().__init__()
-        self.input_section = InputSection(self.summarize_to_output)
+        self.input_section = InputSection(pipe_finetuned, self.summarize_to_output)
         self.output_section = OutputSection(self.save_texts)
         self.list_view = ListView(self.on_item_click)
         self.app_bar = AppBar(self.reset)
@@ -20,7 +20,7 @@ class InputOutputView(ft.UserControl):
         self.update()
 
     def summarize_to_output(self, text: str):
-        # self.input_section.update_prefix()
+        self.input_section.update_prefix()
         self.output_section.set_output_text(text)
 
     def save_texts(self, e):

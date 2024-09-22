@@ -1,0 +1,1 @@
+sciencetimes = "https://www.sciencetimes.co.kr/"

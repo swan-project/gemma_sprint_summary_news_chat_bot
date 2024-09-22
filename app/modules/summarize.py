@@ -10,12 +10,9 @@ async def load_models():
     finetune_model = await asyncio.to_thread(AutoModelForCausalLM.from_pretrained, FINETUNE_MODEL, device_map={"": "cpu"})
     tokenizer = await asyncio.to_thread(AutoTokenizer.from_pretrained, BASE_MODEL)
 
-    return finetune_model, tokenizer
-
-async def create_pipeline(finetune_model, tokenizer):
     return await asyncio.to_thread(pipeline, "text-generation", model=finetune_model, tokenizer=tokenizer, max_new_tokens=512)
 
-async def summarize(doc, pipe_finetuned):
+async def summarize_text(doc, pipe_finetuned):
     # 메시지 생성 및 프롬프트 설정
     messages = [
         {
@@ -32,8 +29,7 @@ async def summarize(doc, pipe_finetuned):
 
     return outputs[0]["generated_text"][len(prompt):]
 
-async def summarize_text(doc):
-    finetune_model, tokenizer = await load_models()
-    pipe_finetuned = await create_pipeline(finetune_model, tokenizer)
-    summary = await summarize(doc, pipe_finetuned)
-    return summary
+# async def summarize_text(doc):
+#     pipe_finetuned = await load_models()
+#     summary = await summarize(doc, pipe_finetuned)
+#     return summary
