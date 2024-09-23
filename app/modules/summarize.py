@@ -17,7 +17,7 @@ async def summarize_text(doc, pipe_finetuned):
     messages = [
         {
             "role": "user",
-            "content": f"다음 글을 요약해주세요:\n\n{doc}"
+            "content": f"다음 글을 자새하 세부적으로 요약해주세요:\n\n{doc}"
         }
     ]
     prompt = pipe_finetuned.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
