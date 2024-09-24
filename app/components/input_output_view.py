@@ -14,6 +14,7 @@ class InputOutputView(ft.UserControl):
         self.app_bar = AppBar(self.reset)
 
     def on_item_click(self, item: Item):
+        self.input_section.update_mode(item.mode)
         self.input_section.set_input_text(item.input)
         self.output_section.set_output_text(item.output)
         self.output_section.set_title(item.title)
@@ -25,7 +26,7 @@ class InputOutputView(ft.UserControl):
 
     def save_texts(self, e):
         input_text = self.input_section.get_input_text()
-        self.output_section.save_to_local_storage(input_text)
+        self.output_section.save_to_local_storage(self.input_section.get_mode(), input_text)
         self.list_view.load_items()
         self.list_view.update()
     

@@ -46,9 +46,10 @@ class OutputSection(ft.UserControl):
         self.text_field.value = ""
 
     # 데이터를 로컬 스토리지에 저장하는 메서드
-    def save_to_local_storage(self, input_text: str):
+    def save_to_local_storage(self, mode: str, input_text: str):
         item = Item(
             id=str(uuid.uuid4()), 
+            mode=mode,
             title=self.get_title(),
             input=input_text,
             output=self.get_output_text()

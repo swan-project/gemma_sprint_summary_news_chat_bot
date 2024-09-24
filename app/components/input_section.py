@@ -38,16 +38,23 @@ class InputSection(ft.UserControl):
         self.text_field.value = text
         self.update()
 
-    def reset(self):
-        self.mode = "link"
+    def get_mode(self):
+        return self.mode
+    
+    def update_mode(self, mode: str):
+        self.mode = mode
         self.update_prefix()
 
-    # Tab을 전환할 때 호출되는 메서드
-    def on_tab_change(self, e):
-        selected_tab = self.tabs.tabs[self.tabs.selected_index].text
-        self.mode = "link" if "Link" in selected_tab else "text"
-        self.update_prefix()
-        print(f"Selected mode: {self.mode}")
+        # mode에 따라 탭 선택 변경
+        if mode == "link":
+            self.tabs.selected_index = 0  # Link Mode 탭 선택
+        else:
+            self.tabs.selected_index = 1  # Text Mode 탭 선택
+
+        self.update()
+
+    def reset(self):
+        self.update_mode("link")
 
     def validate_input(self):
         if not self.text_field.value.startswith(sciencetimes):
@@ -68,6 +75,13 @@ class InputSection(ft.UserControl):
         else:
             self.text_field.value = ""
         self.update()
+    
+     # Tab을 전환할 때 호출되는 메서드
+    def on_tab_change(self, e):
+        selected_tab = self.tabs.tabs[self.tabs.selected_index].text
+        self.mode = "link" if "Link" in selected_tab else "text"
+        self.update_prefix()
+        print(f"Selected mode: {self.mode}")
 
     async def summarize(self, e):
         input_text = self.text_field.value

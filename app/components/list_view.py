@@ -31,6 +31,7 @@ class ListView(ft.UserControl):
                     title=ft.Row(
                         controls=[
                             ft.Text(item.title),
+                            ft.Text(item.mode),
                             ft.IconButton(
                                 icon=ft.icons.DELETE,
                                 on_click=lambda e, item=item: self.delete_item(item)
