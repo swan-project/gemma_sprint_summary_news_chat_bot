@@ -1,3 +1,6 @@
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 import flet as ft
 from components.input_output_view import InputOutputView
 from modules.auth import authenticate

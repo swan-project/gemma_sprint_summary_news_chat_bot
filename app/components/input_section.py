@@ -84,6 +84,7 @@ class InputSection(ft.UserControl):
         print(f"Selected mode: {self.mode}")
 
     async def summarize(self, e):
+        self.on_summarize('로딩중입니다...')
         input_text = self.text_field.value
         if self.mode == "link":
             if self.validate_input():
