@@ -1,6 +1,8 @@
 import flet as ft
+import asyncio
 from typing import Callable
 from modules.summarize import summarize_text
+from modules.generate_title import generate_title
 from components.alert_dialog import AlertDialog
 from constants.links import sciencetimes
 from modules.web_scraper import extract_article
@@ -90,10 +92,9 @@ class InputSection(ft.UserControl):
             if self.validate_input():
                 is_valid, paragraphs = extract_article(self.text_field.value)
                 if is_valid:
-                    #print(paragraphs)
                     combined_text = "\n\n".join(paragraphs)
                     text_summary = await summarize_text(combined_text, self.pipe_finetuned)
-
+                    title = "title"
                 else:
                     self.dialog.open(
                         self.page,
@@ -102,9 +103,12 @@ class InputSection(ft.UserControl):
                         btn_text="확인"
                     )
         else:
-            print(input_text)
-            text_summary = await summarize_text(input_text, self.pipe_finetuned)
-        self.on_summarize(text_summary)
+            print("summarzing", input_text)
+            title, text_summary = await asyncio.gather(
+                generate_title(input_text, self.pipe_finetuned),
+                summarize_text(input_text, self.pipe_finetuned)
+            )
+        self.on_summarize(title, text_summary)
 
     def build(self):
         return ft.Column(
