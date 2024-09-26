@@ -33,7 +33,7 @@ class InputOutputView(ft.UserControl):
     def reset(self, e):
         self.input_section.reset()
         self.output_section.reset()
-        self.list_view.reset(e)
+        # self.list_view.reset(e)
 
     def build(self):
         return ft.Column(

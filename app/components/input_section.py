@@ -55,7 +55,10 @@ class InputSection(ft.UserControl):
         self.update()
 
     def reset(self):
-        self.update_mode("link")
+        if self.mode == "link":
+            self.text_field.value = sciencetimes
+        else:
+            self.text_field.value = ""
 
     def validate_input(self):
         if not self.text_field.value.startswith(sciencetimes):
