@@ -8,9 +8,9 @@ class ListView(ft.UserControl):
         super().__init__()
         self.on_item_click = on_item_click
         self.list_view = ft.ListView(
-            width=800,
+            # width=800,
             height=600,  # 스크롤이 가능하도록 높이를 설정
-            auto_scroll=True
+            auto_scroll=False,
         )
         self.empty_message = ft.Text(
             value="Empty saved summary",
@@ -30,8 +30,18 @@ class ListView(ft.UserControl):
                 ft.ListTile(
                     title=ft.Row(
                         controls=[
-                            ft.Text(item.title),
-                            ft.Text(item.mode),
+                            ft.Text(
+                                item.title,
+                                width=400,  
+                                no_wrap=True,
+                                overflow="ellipsis"
+                            ),
+                            ft.Container(
+                                content=ft.Text(item.mode),
+                                bgcolor=ft.colors.GREY_200,
+                                padding=ft.padding.symmetric(horizontal=10, vertical=5),
+                                border_radius=ft.border_radius.all(10),
+                            ),
                             ft.IconButton(
                                 icon=ft.icons.DELETE,
                                 on_click=lambda e, item=item: self.delete_item(item)
