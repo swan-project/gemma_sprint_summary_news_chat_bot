@@ -11,13 +11,11 @@ class OutputSection(ft.UserControl):
             label="Title", 
             value="Text Summary",
             border=ft.InputBorder.UNDERLINE,
-            width=400
         )
         self.text_field = ft.TextField(
             border_color=ft.colors.TRANSPARENT,
             label="Output Text", 
             multiline=True, 
-            width=400,
             height=400,
         )
         self.next_id = 1  # ID를 자동으로 증가시키기 위한 변수

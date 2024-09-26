@@ -15,7 +15,6 @@ class InputSection(ft.UserControl):
             value=sciencetimes,
             label="Input Text",
             multiline=True,
-            width=400,
             height=400
         )
 
@@ -26,7 +25,7 @@ class InputSection(ft.UserControl):
                 ft.Tab(text="Link Mode"),
                 ft.Tab(text="Text Mode")
             ],
-            on_change=self.on_tab_change
+            on_change=self.on_tab_change,
         )
 
         self.on_summarize = on_summarize

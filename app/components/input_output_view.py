@@ -39,17 +39,32 @@ class InputOutputView(ft.UserControl):
         return ft.Column(
             controls=[
                 self.app_bar,
-                ft.Row(
-                    controls=[
-                        self.input_section,
-                        self.output_section,
+                ft.ResponsiveRow(
+                    [
+                        ft.Container(
+                            self.input_section,
+                            col={"xxl": 3, "xl": 4, "lg": 8, "md": 12, "sm": 12, "xs": 12}
+                        ),
+                        ft.Container(
+                            self.output_section,
+                            col={"xxl": 3, "xl": 4, "lg": 8, "md": 12, "sm": 12, "xs": 12}
+                        ),
                     ],
                     alignment=ft.MainAxisAlignment.CENTER,
                     vertical_alignment=ft.CrossAxisAlignment.END,
                     spacing=30
                 ),
-                self.list_view
+                ft.ResponsiveRow( 
+                    [
+                        ft.Container(
+                            self.list_view,
+                            col={"xxl": 6, "xl": 8, "lg": 12, "md": 12, "sm": 12, "xs": 12},
+                        )
+                    ],
+                    alignment=ft.MainAxisAlignment.CENTER
+                )
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=50
+            spacing=50,
+            scroll=ft.ScrollMode.AUTO
         )
