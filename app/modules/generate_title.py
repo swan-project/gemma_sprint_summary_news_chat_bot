@@ -5,7 +5,7 @@ async def generate_title(doc, pipe_finetuned):
     messages = [
         {
             "role": "user",
-            "content": f"다음 글의 핵심을 잘 표현하는 세 단어로 된 제목을 만들어 주세요:\n\n{doc}"
+            "content": f"다음 글의 핵심을 잘 표현하는 세 단어로 된 제목을 간결하게 만들어 주세요. 반드시 세 단어로만 구성해 주세요:\n\n{doc}"
         }
     ]
     prompt = pipe_finetuned.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
