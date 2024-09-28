@@ -1,0 +1,15 @@
+<svg width="1294" height="227" viewBox="0 0 1294 227" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="11.5" cy="56.5" r="8" stroke="black" stroke-width="7"/>
+<circle cx="51.5" cy="56.5" r="8" stroke="black" stroke-width="7"/>
+<circle cx="177.5" cy="11.5" r="8" stroke="black" stroke-width="7"/>
+<circle cx="70.5" cy="215.5" r="8" stroke="black" stroke-width="7"/>
+<path d="M21 55.5H43" stroke="black" stroke-width="10"/>
+<path d="M317 32.5H224.5V58.5H258.5V190H284.5V58.5H317V32.5Z" fill="black"/>
+<path d="M469.5 32.5H385V190H469.5V164.5H411V125H455.5V99.5H411V58.5H469.5V32.5Z" fill="black"/>
+<path d="M601.5 32.5H564L536.5 60V164.5L564 192H601.5L629 164.5V138.5H601.5V154L591 164.5H575.5L564 153V70.5L574.5 60H591L601.5 70.5V84.5H629V60L601.5 32.5Z" fill="black"/>
+<path d="M722.5 32.5H696V190H722.5V125H762.5V190H789V32.5H762.5V97H722.5V32.5Z" fill="black"/>
+<path d="M948 60V85H920.5V70.5L910 60H893L881.5 71.5V81L948 115.5V163L920.5 190.5H883.5L856 163V138.5H881.5V152.5L892 163H910L920.5 152.5V131.5L856 97V60L883.5 32.5H920.5L948 60Z" fill="black"/>
+<path d="M1041.5 152.5V32.5H1016V163L1041.5 188.5H1081L1106.5 163V32.5H1081V152.5L1070.5 163H1052L1041.5 152.5Z" fill="black"/>
+<path d="M1200 32.5H1174V188.5H1200V91.5L1233 129L1266.5 88.5V188.5H1293.5V32.5H1266.5V48L1233 87L1200 48V32.5Z" fill="black"/>
+<path d="M169 12H16V34H169V55.5H116.5V210.5H93.5V55.5H70.5V207" stroke="black" stroke-width="10"/>
+</svg>

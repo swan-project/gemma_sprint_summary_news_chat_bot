@@ -14,4 +14,4 @@ async def main(page: ft.Page):
     page.add(InputOutputView(pipe_finetuned))
     page.update()       
 
-ft.app(main)
+ft.app(target=main, assets_dir="assets")

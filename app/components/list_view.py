@@ -32,13 +32,13 @@ class ListView(ft.UserControl):
                         controls=[
                             ft.Text(
                                 item.title,
-                                width=400,  
+                                width=300,  
                                 no_wrap=True,
                                 overflow="ellipsis"
                             ),
                             ft.Container(
-                                content=ft.Text(item.mode),
-                                bgcolor=ft.colors.GREY_200,
+                                content=ft.Text(item.mode, color=ft.colors.WHITE, size=12),
+                                bgcolor="#36618E",
                                 padding=ft.padding.symmetric(horizontal=10, vertical=5),
                                 border_radius=ft.border_radius.all(10),
                             ),
