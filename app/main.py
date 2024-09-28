@@ -6,6 +6,14 @@ from components.input_output_view import InputOutputView
 from modules.auth import authenticate
 from modules.load_model import load_models
 
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import JSONResponse
+import flet.fastapi as flet_fastapi
+from fastapi.staticfiles import StaticFiles
+
+app = FastAPI()
+app.mount("/static", StaticFiles(directory="../app/assets"), name="static")
+
 async def main(page: ft.Page):
     page.title = 'techsum'
     page.theme_mode = 'light'
@@ -14,4 +22,10 @@ async def main(page: ft.Page):
     page.add(InputOutputView(pipe_finetuned))
     page.update()       
 
-ft.app(target=main, assets_dir="assets")
+
+# local program check
+#ft.app(target=main, assets_dir="assets")
+
+flet_app = flet_fastapi.app(session_handler=main,assets_dir='assets') 
+app.mount("/", flet_app)
+
