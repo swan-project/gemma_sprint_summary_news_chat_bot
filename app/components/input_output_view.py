@@ -66,5 +66,6 @@ class InputOutputView(ft.UserControl):
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             spacing=50,
+            height=800,
             scroll=ft.ScrollMode.AUTO
         )
