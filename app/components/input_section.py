@@ -108,11 +108,11 @@ class InputSection(ft.UserControl):
         input_text = self.text_field.value
         if self.mode == "link":
             if self.validate_input():
-                is_valid, paragraphs = extract_article(self.text_field.value)
+                is_valid, title_news, paragraphs = extract_article(self.text_field.value)
                 if is_valid:
                     combined_text = "\n\n".join(paragraphs)
                     text_summary = await summarize_text(combined_text, self.pipe_finetuned)
-                    title = "title"
+                    title = title_news
                 else:
                     self.dialog.open(
                         self.page,
