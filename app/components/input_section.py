@@ -8,14 +8,15 @@ from constants.links import sciencetimes
 from modules.web_scraper import extract_article
 
 class InputSection(ft.UserControl):
-    def __init__(self, pipe_finetuned, on_summarize: Callable[[str], None]):
+    def __init__(self, pipe_finetuned, on_summarize: Callable[[str, str], None]):
         super().__init__()
         self.text_field = ft.TextField(
             border_color=ft.colors.TRANSPARENT,
             value=sciencetimes,
             label="Input Text",
             multiline=True,
-            height=400
+            height=400,
+            on_change=self.on_text_change
         )
 
         # mode에 따라 탭을 추가
@@ -27,6 +28,10 @@ class InputSection(ft.UserControl):
             ],
             on_change=self.on_tab_change,
         )
+        self.button = ft.ElevatedButton(
+                        text="Summarize to Output", 
+                        on_click=self.summarize,
+                    )
 
         self.on_summarize = on_summarize
         self.dialog = AlertDialog()
@@ -87,8 +92,19 @@ class InputSection(ft.UserControl):
         self.update_prefix()
         print(f"Selected mode: {self.mode}")
 
+    def on_text_change(self, e):
+        # 텍스트 필드가 비어있는지 확인하고 버튼 상태 업데이트
+        is_empty = not self.text_field.value.strip()
+        self.button.disabled = is_empty
+        self.update()  # UI 업데이트
+        
     async def summarize(self, e):
-        self.on_summarize('로딩중입니다...')
+        self.button.disabled = True  # 버튼 비활성화
+        self.button.text = "Summarizing..."  # 버튼 텍스트 변경
+        self.update()  # UI 업데이트
+
+        self.on_summarize("Loading...", 'Loading...')
+        
         input_text = self.text_field.value
         if self.mode == "link":
             if self.validate_input():
@@ -111,6 +127,9 @@ class InputSection(ft.UserControl):
                 summarize_text(input_text, self.pipe_finetuned)
             )
         self.on_summarize(title, text_summary)
+        self.button.disabled = False  # 버튼 비활성화
+        self.button.text = "Summarize to Output"  # 버튼 텍스트 변경
+        self.update()  # UI 업데이트
 
     def build(self):
         return ft.Column(
@@ -118,9 +137,7 @@ class InputSection(ft.UserControl):
                 self.tabs,
                 self.text_field,
                 ft.Row(
-                    controls=[
-                        ft.ElevatedButton(text="Summarize to Output", on_click=self.summarize)
-                    ],
+                    controls=[self.button],
                     alignment=ft.MainAxisAlignment.END
                 )
             ],
