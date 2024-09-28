@@ -97,6 +97,24 @@ class InputSection(ft.UserControl):
         is_empty = not self.text_field.value.strip()
         self.button.disabled = is_empty
         self.update()  # UI 업데이트
+
+    async def get_article(self):
+        is_valid, title_news, paragraphs = extract_article(self.text_field.value)
+        if is_valid:
+                combined_text = "\n\n".join(paragraphs)
+                title = title_news
+        else:
+            self.dialog.open(
+                self.page,
+                title="오류",
+                content="view_content 클래스를 찾을 수 없습니다.",
+                btn_text="확인"
+            )
+        self.update_mode("text")
+        self.text_field.value = combined_text
+        self.on_summarize(title, 'Loading...')
+        self.update()
+        return title, combined_text
         
     async def summarize(self, e):
         self.button.disabled = True  # 버튼 비활성화
@@ -108,18 +126,8 @@ class InputSection(ft.UserControl):
         input_text = self.text_field.value
         if self.mode == "link":
             if self.validate_input():
-                is_valid, title_news, paragraphs = extract_article(self.text_field.value)
-                if is_valid:
-                    combined_text = "\n\n".join(paragraphs)
-                    text_summary = await summarize_text(combined_text, self.pipe_finetuned)
-                    title = title_news
-                else:
-                    self.dialog.open(
-                        self.page,
-                        title="오류",
-                        content="view_content 클래스를 찾을 수 없습니다.",
-                        btn_text="확인"
-                    )
+                title, paragraphs = await self.get_article()
+                text_summary = await summarize_text(paragraphs, self.pipe_finetuned)
         else:
             print("summarzing", input_text)
             title, text_summary = await asyncio.gather(
