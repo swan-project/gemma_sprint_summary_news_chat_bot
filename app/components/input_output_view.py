@@ -4,6 +4,7 @@ from components.output_section import OutputSection
 from components.list_view import ListView
 from components.item import Item
 from components.app_bar import AppBar
+import modules.config as config
 
 class InputOutputView(ft.UserControl):
     def __init__(self, pipe_finetuned):
@@ -12,7 +13,11 @@ class InputOutputView(ft.UserControl):
         self.output_section = OutputSection(self.save_texts)
         self.list_view = ListView(self.on_item_click)
         self.app_bar = AppBar(self.reset)
-        self.guide_image = ft.Image(src="/static/guide.png", visible=True)  # guide.png 이미지 추가
+        if config.getENVMode() == "product":
+            self.guide_image = ft.Image(src="/static/guide.png", visible=True)  
+        else:
+            self.guide_image = ft.Image(src="guide.png", visible=True)  
+
         self.input_section.visible=False
         self.output_section.visible=False
         self.list_view.visible=False
@@ -28,7 +33,7 @@ class InputOutputView(ft.UserControl):
                 self.guide_image
             ]
         )
-        self.mode = "App"  # 기본 모드는 guide로 설정
+        self.mode = "App" 
 
     def on_tab_change(self, e):
         selected_tab = e.control.selected_index
@@ -38,14 +43,13 @@ class InputOutputView(ft.UserControl):
             self.output_section.visible=False
             self.list_view.visible=False
             self.mode = "guide" 
-            # 프로그램 실행을 중지하거나 숨김
+
         elif selected_tab == 1:  # App Tab
             self.guide_image.visible = False
             self.input_section.visible=True
             self.output_section.visible=True
             self.list_view.visible=True            
             self.mode = "App" 
-            # 프로그램 실행 로직 추가
         self.build()
         self.update()
 

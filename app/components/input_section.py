@@ -19,8 +19,7 @@ class InputSection(ft.UserControl):
             on_change=self.on_text_change
         )
 
-        # mode에 따라 탭을 추가
-        self.mode = "link"  # 기본 모드는 link로 설정
+        self.mode = "link"  
         self.tabs = ft.Tabs(
             tabs=[
                 ft.Tab(text="Link Mode"),
@@ -51,11 +50,10 @@ class InputSection(ft.UserControl):
         self.mode = mode
         self.update_prefix()
 
-        # mode에 따라 탭 선택 변경
         if mode == "link":
-            self.tabs.selected_index = 0  # Link Mode 탭 선택
+            self.tabs.selected_index = 0  
         else:
-            self.tabs.selected_index = 1  # Text Mode 탭 선택
+            self.tabs.selected_index = 1 
 
         self.update()
 
@@ -79,13 +77,10 @@ class InputSection(ft.UserControl):
     def update_prefix(self):
         if self.mode == "link":
             self.text_field.value = "https://www.sciencetimes.co.kr/"
-            # 웹페이지 URL
-            #url = "https://www.sciencetimes.co.kr/news/%eb%82%b4-%ec%a3%bc%eb%b3%80-%ec%83%9d%eb%ac%bc-%ec%86%8c%eb%a6%ac%eb%a1%9c-%ec%83%9d%eb%ac%bc%eb%8b%a4%ec%96%91%ec%84%b1-%ec%97%b0%ea%b5%ac%ed%95%9c%eb%8b%a4%ec%86%8c%eb%a6%ac/?cat=31"
         else:
             self.text_field.value = "\n\n\n\n\n\n\n\n"
         self.update()
     
-     # Tab을 전환할 때 호출되는 메서드
     def on_tab_change(self, e):
         selected_tab = self.tabs.tabs[self.tabs.selected_index].text
         self.mode = "link" if "Link" in selected_tab else "text"
@@ -93,10 +88,10 @@ class InputSection(ft.UserControl):
         print(f"Selected mode: {self.mode}")
 
     def on_text_change(self, e):
-        # 텍스트 필드가 비어있는지 확인하고 버튼 상태 업데이트
+        # Check if the text field is empty and update the button state
         is_empty = not self.text_field.value.strip()
         self.button.disabled = is_empty
-        self.update()  # UI 업데이트
+        self.update()  
 
     async def get_article(self):
         is_valid, title_news, paragraphs = extract_article(self.text_field.value)
@@ -117,9 +112,9 @@ class InputSection(ft.UserControl):
         return title, combined_text
         
     async def summarize(self, e):
-        self.button.disabled = True  # 버튼 비활성화
-        self.button.text = "Summarizing..."  # 버튼 텍스트 변경
-        self.update()  # UI 업데이트
+        self.button.disabled = True  
+        self.button.text = "Summarizing..."  
+        self.update()  
 
         self.on_summarize("Loading...", 'Loading...')
         
@@ -129,7 +124,7 @@ class InputSection(ft.UserControl):
                 title, paragraphs = await self.get_article()
                 text_summary = await summarize_text(paragraphs, self.pipe_finetuned)
         else:
-            text_wo_enter = self.text_field.value.replace("\n", "")  # 줄바꿈 문자를 제거한 텍스트
+            text_wo_enter = self.text_field.value.replace("\n", "")  
             if len(text_wo_enter) < 100:
                 self.dialog.open(
                     self.page,
@@ -137,9 +132,9 @@ class InputSection(ft.UserControl):
                     content="입력 텍스트는 최소 100자 이상이어야 합니다.",
                     btn_text="확인"
                 )            
-                self.button.disabled = False  # 버튼 활성화
-                self.button.text = "Summarize to Output"  # 버튼 텍스트 복원
-                self.update()  # UI 업데이트                
+                self.button.disabled = False 
+                self.button.text = "Summarize to Output"  
+                self.update()                
             else:
                 print("summarzing", input_text)
                 title, text_summary = await asyncio.gather(
@@ -148,9 +143,9 @@ class InputSection(ft.UserControl):
                 )
 
         self.on_summarize(title, text_summary)
-        self.button.disabled = False  # 버튼 비활성화
-        self.button.text = "Summarize to Output"  # 버튼 텍스트 변경
-        self.update()  # UI 업데이트
+        self.button.disabled = False 
+        self.button.text = "Summarize to Output"  
+        self.update() 
 
     def build(self):
         return ft.Column(

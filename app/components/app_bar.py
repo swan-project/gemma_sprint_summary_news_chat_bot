@@ -1,15 +1,26 @@
 import flet as ft
 from typing import Callable
+import modules.config as config
 
 class AppBar(ft.UserControl):
     def __init__(self, on_reset: Callable[[], None]):
         super().__init__()
-        self.logo = ft.Image(
-            src="/static/logo.svg",
-            #src="logo.svg",
-            fit=ft.ImageFit.CONTAIN,
-            height=20,
-        )
+
+
+        if config.getENVMode() == "product":
+            self.logo = ft.Image(
+                src="/static/logo.svg",
+                #src="logo.svg",
+                fit=ft.ImageFit.CONTAIN,
+                height=20,
+            )
+        else:
+            self.logo = ft.Image(
+                src="logo.svg",
+                fit=ft.ImageFit.CONTAIN,
+                height=20,
+            )
+
         self.title = ft.Text("techsum", size=24, weight=ft.FontWeight.BOLD)
         self.reset_button = ft.ElevatedButton(
             content=ft.Row(
@@ -26,7 +37,6 @@ class AppBar(ft.UserControl):
         return ft.Container(
             content=ft.Row(
                 controls=[
-                    # self.title,
                     self.logo,
                     self.reset_button
                 ],
