@@ -62,6 +62,7 @@ class InputSection(ft.UserControl):
             self.text_field.value = sciencetimes
         else:
             self.text_field.value = ""
+        self.update()
 
     def validate_input(self):
         if not self.text_field.value.startswith(sciencetimes):

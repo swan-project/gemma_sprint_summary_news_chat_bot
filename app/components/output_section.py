@@ -40,8 +40,9 @@ class OutputSection(ft.UserControl):
         return self.title_field.value
     
     def reset(self):
-        self.title_field.value = "Text Summary",
+        self.title_field.value = "Text Summary"
         self.text_field.value = ""
+        self.update()
 
     # 데이터를 로컬 스토리지에 저장하는 메서드
     def save_to_local_storage(self, mode: str, input_text: str):
