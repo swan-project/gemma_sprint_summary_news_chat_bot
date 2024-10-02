@@ -39,16 +39,18 @@ This model is built on the gemma-2-2b-it base and fine-tuned using advanced tech
 3. **Fine-Tuning Parameters**: Fine-tuning is set up using SFTTrainer, with a batch size of 1, gradient_accumulation_steps=4, and max_steps=3000. The training uses 8-bit AdamW optimizer (paged_adamw_8bit) for better performance in a memory-constrained environment.
 
 ### Example
+
 **input**
+
 ```
 그렇게 등장한 것이 원자시계다. 원자가 1초 동안 움직이는 횟수인 ‘고유진동수’를 이용해 정확한 1초를 측정한다. 원자 속에 있는 전자들은 특정 에너지 상태로 있다. 이 상태에서 다른 상태로 변화하려면 에너지를 두 상태의 차이만큼 흡수하거나 방출해야 한다. 전자가 에너지를 얻기 위해(다른 에너지 상태로 변하기 위해) 전자기파를 흡수할 때 진동이 발생하는데, 이것이 바로 고유진동수다.
 ```
 
 **output**
+
 ```
 원자시계는 원자가 1초 동안 움직이는 횟수인 고유진동수를 이용해 정확한 1초를 측정한다.
 ```
-
 
 ## Project Structure
 
@@ -75,6 +77,8 @@ gemma_sprint_summary_news_chat_bot/
 ### About The App
 
 TechSum is a user-friendly application designed to simplify the process of summarizing articles and text. By inputting a link from the ScienceTimes website, TechSum automatically retrieves the article and generates a concise summary. Users can also paste their own text to receive a quick summary. Additionally, TechSum allows users to save these summaries locally for easy reference. The app streamlines access to key information, making it a convenient tool for anyone seeking quick insights from technical articles or lengthy texts.
+
+You can visit the website using this [link](https://techsum.store/)
 
 ### Getting Started
 
@@ -111,8 +115,3 @@ flet run
 ## Demo
 
 https://github.com/user-attachments/assets/9ab61bcd-4174-4696-a2bd-9799ba0f867d
-
-
-**Link Mode**
-
-**Text Mode**
