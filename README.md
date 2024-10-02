@@ -8,6 +8,7 @@ The Gemma LLM model is being fine-tuned specifically for use in a technical summ
 2. [ Model ](#model)
 3. [ Project Structure ](#project-structure)
 4. [ App ](#app)
+5. [_Demo_](#demo)
 
 ## Dataset
 
@@ -107,7 +108,10 @@ HUGGINGFACE_TOKEN=YourKey
 flet run
 ```
 
-### Demo
+## Demo
+
+https://github.com/user-attachments/assets/9ab61bcd-4174-4696-a2bd-9799ba0f867d
+
 
 **Link Mode**
 
