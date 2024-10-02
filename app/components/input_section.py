@@ -11,7 +11,7 @@ class InputSection(ft.UserControl):
     def __init__(self, pipe_finetuned, on_summarize: Callable[[str, str], None]):
         super().__init__()
         self.text_field = ft.TextField(
-            border_color=ft.colors.TRANSPARENT,
+            border_color=ft.colors.GREEN_400,
             value=sciencetimes,
             label="Input Text",
             multiline=True,
@@ -78,11 +78,11 @@ class InputSection(ft.UserControl):
         
     def update_prefix(self):
         if self.mode == "link":
-            self.text_field.value = "http`s://www.sciencetimes.co.kr/"
+            self.text_field.value = "https://www.sciencetimes.co.kr/"
             # 웹페이지 URL
             #url = "https://www.sciencetimes.co.kr/news/%eb%82%b4-%ec%a3%bc%eb%b3%80-%ec%83%9d%eb%ac%bc-%ec%86%8c%eb%a6%ac%eb%a1%9c-%ec%83%9d%eb%ac%bc%eb%8b%a4%ec%96%91%ec%84%b1-%ec%97%b0%ea%b5%ac%ed%95%9c%eb%8b%a4%ec%86%8c%eb%a6%ac/?cat=31"
         else:
-            self.text_field.value = ""
+            self.text_field.value = "\n\n\n\n\n\n\n\n"
         self.update()
     
      # Tab을 전환할 때 호출되는 메서드
@@ -129,11 +129,24 @@ class InputSection(ft.UserControl):
                 title, paragraphs = await self.get_article()
                 text_summary = await summarize_text(paragraphs, self.pipe_finetuned)
         else:
-            print("summarzing", input_text)
-            title, text_summary = await asyncio.gather(
-                generate_title(input_text, self.pipe_finetuned),
-                summarize_text(input_text, self.pipe_finetuned)
-            )
+            text_wo_enter = self.text_field.value.replace("\n", "")  # 줄바꿈 문자를 제거한 텍스트
+            if len(text_wo_enter) < 100:
+                self.dialog.open(
+                    self.page,
+                    title="경고",
+                    content="입력 텍스트는 최소 100자 이상이어야 합니다.",
+                    btn_text="확인"
+                )            
+                self.button.disabled = False  # 버튼 활성화
+                self.button.text = "Summarize to Output"  # 버튼 텍스트 복원
+                self.update()  # UI 업데이트                
+            else:
+                print("summarzing", input_text)
+                title, text_summary = await asyncio.gather(
+                    generate_title(input_text, self.pipe_finetuned),
+                    summarize_text(input_text, self.pipe_finetuned)
+                )
+
         self.on_summarize(title, text_summary)
         self.button.disabled = False  # 버튼 비활성화
         self.button.text = "Summarize to Output"  # 버튼 텍스트 변경

@@ -6,6 +6,7 @@ class AppBar(ft.UserControl):
         super().__init__()
         self.logo = ft.Image(
             src="/static/logo.svg",
+            #src="logo.svg",
             fit=ft.ImageFit.CONTAIN,
             height=20,
         )

@@ -10,8 +10,9 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.responses import JSONResponse
 import flet.fastapi as flet_fastapi
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.httpsredirect import HTTPSRedirectMiddleware
 
-app = FastAPI()
+app = FastAPI(timeout=None)
 app.mount("/static", StaticFiles(directory="../app/assets"), name="static")
 
 async def main(page: ft.Page):
@@ -26,6 +27,5 @@ async def main(page: ft.Page):
 # local program check
 #ft.app(target=main, assets_dir="assets")
 
-flet_app = flet_fastapi.app(session_handler=main,assets_dir='assets') 
+flet_app = flet_fastapi.app(main,assets_dir='assets') 
 app.mount("/", flet_app)
-

@@ -12,6 +12,42 @@ class InputOutputView(ft.UserControl):
         self.output_section = OutputSection(self.save_texts)
         self.list_view = ListView(self.on_item_click)
         self.app_bar = AppBar(self.reset)
+        self.guide_image = ft.Image(src="/static/guide.png", visible=True)  # guide.png 이미지 추가
+        self.input_section.visible=False
+        self.output_section.visible=False
+        self.list_view.visible=False
+        self.tabs = ft.Tabs(
+            tabs=[
+                ft.Tab(text="Guide"),
+                ft.Tab(text="App")
+            ],
+            on_change=self.on_tab_change,
+        )
+        self.input_container = ft.Column(
+            controls=[
+                self.guide_image
+            ]
+        )
+        self.mode = "App"  # 기본 모드는 guide로 설정
+
+    def on_tab_change(self, e):
+        selected_tab = e.control.selected_index
+        if selected_tab == 0:  # Guide Tab
+            self.guide_image.visible = True
+            self.input_section.visible=False
+            self.output_section.visible=False
+            self.list_view.visible=False
+            self.mode = "guide" 
+            # 프로그램 실행을 중지하거나 숨김
+        elif selected_tab == 1:  # App Tab
+            self.guide_image.visible = False
+            self.input_section.visible=True
+            self.output_section.visible=True
+            self.list_view.visible=True            
+            self.mode = "App" 
+            # 프로그램 실행 로직 추가
+        self.build()
+        self.update()
 
     def on_item_click(self, item: Item):
         self.input_section.update_mode(item.mode)
@@ -36,9 +72,12 @@ class InputOutputView(ft.UserControl):
         # self.list_view.reset(e)
 
     def build(self):
+
         return ft.Column(
             controls=[
                 self.app_bar,
+                self.tabs,
+                self.guide_image,
                 ft.ResponsiveRow(
                     [
                         ft.Container(
@@ -54,7 +93,7 @@ class InputOutputView(ft.UserControl):
                     vertical_alignment=ft.CrossAxisAlignment.END,
                     spacing=30
                 ),
-                ft.ResponsiveRow( 
+                ft.ResponsiveRow(
                     [
                         ft.Container(
                             self.list_view,
@@ -65,7 +104,7 @@ class InputOutputView(ft.UserControl):
                 )
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=50,
-            height=800,
+            spacing=20,
+            height=900,
             scroll=ft.ScrollMode.AUTO
         )
